@@ -1,0 +1,38 @@
+.promo-section-wrapper {
+    position: relative;
+    padding: 60px 20px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  /* طبقة شفافة عشان الكلام يبان فوق الصورة */
+  .promo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .promo-content {
+    position: relative;
+    z-index: 2; /* عشان الكلام يكون فوق الطبقة الشفافة */
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .promo-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .promo-desc {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }

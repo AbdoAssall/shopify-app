@@ -1,0 +1,22 @@
+.promo-section-wrapper {
+    /* لاحظ هنا استخدمنا متغير بدل Liquid */
+    background-color: var(--promo-bg-color, #f4f4f4);
+    color: var(--promo-text-color, #000);
+}
+.promo-overlay {
+    background-color: rgba(0, 0, 0, var(--promo-overlay-opacity, 0.5));
+}
+.promo-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    /* متغيرات لألوان الزرار */
+    background-color: var(--promo-btn-bg);
+    color: var(--promo-btn-text);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.promo-btn:hover {
+    opacity: 0.8;
+}

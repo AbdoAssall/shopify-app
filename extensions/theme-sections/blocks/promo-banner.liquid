@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="https://too-updated-strengths-criteria.trycloudflare.com/app/styles?shop={{ shop.permanent_domain }}">
+{% comment %} 
+  1. الـ CSS والستايل الخاص بالسكشن 
+{% endcomment %}
+{{ 'promo-style.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  /* بنعمل ID مميز للسكشن عشان التغيير ميعملش مشاكل لو السكشن مضاف مرتين */
+  #shopify-block-{{ block.id }} .promo-section-wrapper {
+    /* هنا بنعرف قيم المتغيرات بناءً على الـ Settings */
+    --promo-text-color: {{ block.settings.text_color }};
+    --promo-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    --promo-btn-bg: {{ block.settings.btn_bg_color }};
+    --promo-btn-text: {{ block.settings.btn_text_color }};
+    
+    /* الصورة بنحطها هنا لأن الـ CSS الخارجي ميعرفش يجيب رابط الصورة */
+    background-image: url('{{ block.settings.bg_image | image_url: width: 1200 }}');
+  }
+{% endstyle %}
+
+{% comment %} 
+ {% style %}
+  .promo-section-wrapper {
+    color: {{ block.settings.text_color }};
+  }
+
+  /* طبقة شفافة عشان الكلام يبان فوق الصورة */
+  .promo-overlay {
+    background-color: rgba(0, 0, 0, {{ block.settings.overlay_opacity | divided_by: 100.0 }});
+  }
+
+  .promo-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.btn_bg_color }};
+    color: {{ block.settings.btn_text_color }};
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .promo-btn:hover {
+    opacity: 0.8;
+  }
+{% endstyle %} 
+ {% endcomment %}
+
+{% comment %} 
+  2. كود الـ HTML اللي بيظهر في الصفحة 
+{% endcomment %}
+ <div id="shopify-block-{{ block.id }}">
+    <div class="promo-section-wrapper" style="background-image: url('{{ block.settings.bg_image | image_url: width: 1200 }}');">
+       <div class="promo-overlay"></div>
+       
+       <div class="promo-content">
+         <h2 class="promo-title">{{ block.settings.title }}</h2>
+         <div class="promo-desc">{{ block.settings.description }}</div>
+         
+         {% if block.settings.btn_link != blank %}
+           <a href="{{ block.settings.btn_link }}" class="promo-btn">
+             {{ block.settings.btn_label }}
+           </a>
+         {% endif %}
+       </div>
+     </div>
+ </div>
+
+{% comment %} 
+  3. إعدادات لوحة التحكم (Schema) 
+{% endcomment %}
+{% schema %}
+{
+  "name": "Promo Banner",
+  "target": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Special Offer!"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Get the best deals now on our store.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background",
+      "default": "#ff5500"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text",
+      "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}
