@@ -32,3 +32,23 @@ model Session {
   refreshToken        String?
   refreshTokenExpires DateTime?
 }
+
+model Shop {
+  id          String   @id @default(uuid())
+  shop        String   @unique
+  plan        String   @default("FREE") // FREE, BASIC, PREMIUM, GOLD
+  isPaid      Boolean  @default(false) // Indicates if the shop is on a paid plan
+  purchasedSections PurchasedSection[]   // Relation to PurchasedSection (If he buys more than one section)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// A table for storing sections purchased individually
+model PurchasedSection {
+  id        String   @id @default(uuid())
+  sectionId String   // "promo-banner"
+  price     Float    // The price he paid at the time
+  shop      Shop     @relation(fields: [shopId], references: [id])
+  shopId    String
+  createdAt DateTime @default(now())
+}
