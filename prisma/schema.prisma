@@ -48,6 +48,7 @@ model PurchasedSection {
   id        String   @id @default(uuid())
   sectionId String   // "promo-banner"
   price     Float    // The price he paid at the time
+  shopifyChargeId String?
   shop      Shop     @relation(fields: [shopId], references: [id])
   shopId    String
   createdAt DateTime @default(now())
