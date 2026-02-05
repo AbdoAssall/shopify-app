@@ -1,0 +1,83 @@
+{% comment %} theme-check-disable RemoteAsset {% endcomment %}
+{% comment %} <link rel="stylesheet" href="https://your-app-url.fly.dev/api/styles?shop={{ shop.permanent_domain }}&sectionId=video-hero"> {% endcomment %}
+{% comment %} theme-check-enable RemoteAsset {% endcomment %}
+
+{% style %}
+  .video-hero-container {
+  position: relative;
+  height: 500px; /* ارتفاع ثابت */
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #333;
+}
+
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.hero-overlay h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  background: white;
+  color: black;
+  padding: 12px 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #ddd;
+}
+{% endstyle %}
+
+<div class="video-hero-container">
+  {% if block.settings.video_url %}
+    <video autoplay muted loop playsinline class="video-bg">
+      <source src="{{ block.settings.video_url }}" type="video/mp4">
+    </video>
+  {% endif %}
+  
+  <div class="hero-overlay">
+    <h2 style="color: {{ block.settings.text_color }}">{{ block.settings.heading }}</h2>
+    <a href="{{ block.settings.btn_link }}" class="hero-btn">{{ block.settings.btn_label }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pro Video Hero",
+  "target": "section",
+  "settings": [
+    { "type": "url", "id": "video_url", "label": "Video Link (MP4)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cinematic Experience" },
+    { "type": "text", "id": "btn_label", "label": "Button", "default": "Shop Now" },
+    { "type": "url", "id": "btn_link", "label": "Link" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
+  ]
+}
+{% endschema %}

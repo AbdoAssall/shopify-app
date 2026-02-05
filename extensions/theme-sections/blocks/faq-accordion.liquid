@@ -1,0 +1,82 @@
+{% comment %} theme-check-disable RemoteAsset {% endcomment %}
+{% comment %} <link rel="stylesheet" href="https://your-app-url.fly.dev/api/styles?shop={{ shop.permanent_domain }}&sectionId=faq-accordion"> {% endcomment %}
+{% comment %} theme-check-enable RemoteAsset {% endcomment %}
+
+{% style %}
+  .faq-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.faq-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+details summary {
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none; /* لإخفاء السهم الافتراضي */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+details summary::after {
+  content: '+';
+  font-size: 1.5rem;
+}
+
+details[open] summary::after {
+  content: '-';
+}
+
+details p {
+  padding: 15px;
+  background: white;
+  margin: 0;
+  color: #555;
+}
+{% endstyle %}
+
+<div class="faq-section">
+  <h2 class="faq-title">{{ block.settings.title }}</h2>
+  
+  {% comment %} هنا مثال بسيط، لكن يفضل استخدام Blocks للتكرار {% endcomment %}
+  <div class="faq-item">
+    <details>
+      <summary>{{ block.settings.q1 }}</summary>
+      <p>{{ block.settings.a1 }}</p>
+    </details>
+  </div>
+  <div class="faq-item">
+    <details>
+      <summary>{{ block.settings.q2 }}</summary>
+      <p>{{ block.settings.a2 }}</p>
+    </details>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smart FAQ",
+  "target": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Frequently Asked Questions" },
+    { "type": "text", "id": "q1", "label": "Question 1", "default": "How long is shipping?" },
+    { "type": "textarea", "id": "a1", "label": "Answer 1", "default": "Shipping takes 3-5 days." },
+    { "type": "text", "id": "q2", "label": "Question 2", "default": "Do you offer refunds?" },
+    { "type": "textarea", "id": "a2", "label": "Answer 2", "default": "Yes, within 30 days." }
+  ]
+}
+{% endschema %}

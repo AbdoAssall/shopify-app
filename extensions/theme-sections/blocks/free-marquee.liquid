@@ -1,0 +1,53 @@
+{% comment %} theme-check-disable RemoteAsset {% endcomment %}
+{% comment %} <link rel="stylesheet" href="https://your-app-url.fly.dev/api/styles?shop={{ shop.permanent_domain }}&sectionId=free-marquee"> {% endcomment %}
+{% comment %} theme-check-enable RemoteAsset {% endcomment %}
+
+{% style %}
+  .marquee-wrapper {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    display: flex;
+}
+.marquee-content {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+}
+.marquee-content span {
+    padding-right: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+{% endstyle %}
+
+<div class="marquee-wrapper" style="--bg-color: {{ block.settings.bg_color }}; --text-color: {{ block.settings.text_color }};">
+  <div class="marquee-content">
+    <span>{{ block.settings.text }}</span>
+    <span>{{ block.settings.text }}</span>
+    <span>{{ block.settings.text }}</span>
+    <span>{{ block.settings.text }}</span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Running Text (Free)",
+  "target": "section",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Welcome to our store! Free shipping on all orders." },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#000000" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
+  ]
+}
+{% endschema %}
