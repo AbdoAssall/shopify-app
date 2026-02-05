@@ -1,6 +1,6 @@
 import { authenticate } from "../shopify.server";
 import db from "../db.server";
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 import { SECTIONS_CATALOG } from "../models/sections"; // 1. استيراد الكتالوج
 
 export const loader = async ({ request }) => {

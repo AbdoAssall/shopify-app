@@ -1,6 +1,6 @@
 import { authenticate } from "../shopify.server";
 import { SECTIONS_CATALOG } from "../models/sections";
-import { redirect } from "@remix-run/node";
+import { redirect } from "react-router";
 
 export const action = async ({ request }) => {
     const { admin } = await authenticate.admin(request);
